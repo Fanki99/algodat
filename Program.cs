@@ -117,14 +117,36 @@ namespace ALGODAT
             Console.WriteLine(value);
         }
         static void add(){
-            algohash.insert(1, "ssdasdad");
-            algohash.insert(2, "hjjjjj");
-            algohash.insert(5, "sdad");
-            algohash.insert(3, "sssssssssssssssrrrrrrrr");
+            string keyinput;
+            string nameinput;
+
+            Console.WriteLine("Input key");
+            keyinput = Console.ReadLine();
+
+            Console.WriteLine("Input Name");
+            nameinput = Console.ReadLine();
+
+            algohash.insert(Convert.ToInt32(keyinput), nameinput);
             algohash.print();
+            menu();
         }
-        static void del(){}
-        static void search(){}
+        static void del(){
+            Console.WriteLine("key?");
+            string input = Console.ReadLine();
+
+            algohash.remove(Convert.ToInt32(input));
+            algohash.print();
+
+
+            menu();
+        }
+        static void search(){
+            Console.WriteLine("key?");
+            string input = Console.ReadLine();
+
+            Console.WriteLine(algohash.retrieve(Convert.ToInt32(input)));
+            menu();
+        }
         static void save(){}
         static void load(){}
     }

@@ -93,7 +93,23 @@ namespace ALGODAT
                 return;
             }
         }
-
+        public bool remove(int key)
+        {
+            int hash = key % maxSize;
+            while (table[hash] != null && table[hash].getkey() != key)
+            {
+                hash = (hash + 1) % maxSize;
+            }
+            if (table[hash] == null)
+            {
+                return false;
+            }
+            else
+            {
+                table[hash] = null;
+                return true;
+            }
+        }
         public void print()
         {
             for (int i = 0; i < table.Length; i++)
@@ -104,7 +120,7 @@ namespace ALGODAT
                 }
                 else
                 {
-                    Console.WriteLine("{0}", table[i].getname());
+                    Console.WriteLine("{0}, {1}",table[i].getkey(), table[i].getname());
                 }
             }
         }
