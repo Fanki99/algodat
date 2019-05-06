@@ -37,21 +37,21 @@ namespace ALGODAT
             Console.WriteLine("----------------");
             Console.WriteLine("Ihre Auswahl:");
             string choice=Console.ReadLine();
-            if(choice=="ADD"||choice=="add"||choice=="Add"){
+            if(string.Equals(choice, "add",  StringComparison.OrdinalIgnoreCase)){
                 add();
-            } else if (choice=="DEL"||choice=="del"||choice=="Del"){
+            } else if (string.Equals(choice, "del",  StringComparison.OrdinalIgnoreCase)){
                 del();
-            } else if(choice=="IMPORT"||choice=="import"||choice=="Import"){
+            } else if(string.Equals(choice, "import",  StringComparison.OrdinalIgnoreCase)){
                 import();
-            } else if (choice=="SEARCH"||choice=="search"||choice=="Search"){
+            } else if (string.Equals(choice, "search",  StringComparison.OrdinalIgnoreCase)){
                 search();
-            } else if (choice=="PLOT"||choice=="plot"||choice=="Plot"){
+            } else if (string.Equals(choice, "plot",  StringComparison.OrdinalIgnoreCase)){
                 graph();
-            } else if (choice=="SAVE"||choice=="save"||choice=="Save"){
+            } else if (string.Equals(choice, "save",  StringComparison.OrdinalIgnoreCase)){
                 save();
-            } else if (choice=="LOAD"||choice=="load"||choice=="Load"){
+            } else if (string.Equals(choice, "load",  StringComparison.OrdinalIgnoreCase)){
                 load();
-            } else if (choice=="QUIT"||choice=="quit"||choice=="Quit"){
+            } else if (string.Equals(choice, "quit",  StringComparison.OrdinalIgnoreCase)){
                 Environment.Exit(0);
             } else {
                 Console.WriteLine("Bitte gültige Eingabe treffen!");
