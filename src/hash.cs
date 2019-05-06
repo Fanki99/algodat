@@ -82,17 +82,23 @@ namespace ALGODAT
 
             int j = 0;
             int hash = key % maxSize;
-            while(table[hash] != null && table[hash].getkey() != key)
+
+            if (table[hash] == null)
+            {
+                table[hash] = new hashentry(hash, name);
+                return;
+            }
+            else{
+                while(table[hash] != null)
             {
                 j++;
                 hash = (hash + j * j) % maxSize;
             }
-            if (table[hash] == null)
-            {
-                table[hash] = new hashentry(key, name);
-                return;
-            }
+            table[hash] = new hashentry(hash, name);
+            return;
         }
+    }
+
         public bool remove(int key)
         {
             int hash = key % maxSize;
