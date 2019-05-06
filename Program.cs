@@ -7,8 +7,11 @@ namespace ALGODAT
 {
     class Program
     {
+        static hashtable algohash;
         static void Main(string[] args)
         {
+            algohash = new hashtable();
+
             Console.WriteLine("----------------");
             Console.WriteLine("Willkommen bei dem Aktien-Programm");
             Console.WriteLine("von Thomas & Thomas");
@@ -65,7 +68,7 @@ namespace ALGODAT
             {
                 string[] Line = sr.ReadLine().Split(",");
                 Line[0]="0";
-                int[] LineArr = Line;
+                int[] LineArr = Array.ConvertAll(Line, int.Parse);
                 lines.Add(LineArr);
                 Row++;
                 Console.WriteLine(Row);
@@ -113,7 +116,13 @@ namespace ALGODAT
             Console.WriteLine(line);
             Console.WriteLine(value);
         }
-        static void add(){}
+        static void add(){
+            algohash.insert(1, "ssdasdad");
+            algohash.insert(2, "hjjjjj");
+            algohash.insert(5, "sdad");
+            algohash.insert(3, "sssssssssssssssrrrrrrrr");
+            algohash.print();
+        }
         static void del(){}
         static void search(){}
         static void save(){}
