@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ALGODAT
 {
@@ -22,30 +23,56 @@ namespace ALGODAT
             Console.WriteLine("-SAVE: Speichern der Hashtabelle");
             Console.WriteLine("-LOAD: Laden einer Hashtabelle");
             Console.WriteLine("-QUIT: Programm wird beendet");
-            Console.WriteLine("----------------");
-            Console.WriteLine("Ihre Auswahl:");
-            string choice=Console.ReadLine();
-            if(choice=="ADD"||choice=="add"||choice=="Add"){
-
-            } else if (choice=="DEL"||choice=="del"||choice=="Del"){
-
-            } else if(choice=="IMPORT"||choice=="import"||choice=="Import"){
-
-            } else if (choice=="SEARCH"||choice=="search"||choice=="Search"){
-                
-            } else if (choice=="PLOT"||choice=="plot"||choice=="Plot"){
-                graph();
-            } else if (choice=="SAVE"||choice=="save"||choice=="Save"){
-                
-            } else if (choice=="LOAD"||choice=="load"||choice=="Load"){
-                
-            } else if (choice=="QUIT"||choice=="quit"||choice=="Quit"){
-                Environment.Exit(0);
-            }
+            menu();
+            
             
             //graph();
         }
 
+
+        static void menu(){
+            Console.WriteLine("----------------");
+            Console.WriteLine("Ihre Auswahl:");
+            string choice=Console.ReadLine();
+            if(choice=="ADD"||choice=="add"||choice=="Add"){
+                add();
+            } else if (choice=="DEL"||choice=="del"||choice=="Del"){
+                del();
+            } else if(choice=="IMPORT"||choice=="import"||choice=="Import"){
+                import();
+            } else if (choice=="SEARCH"||choice=="search"||choice=="Search"){
+                search();
+            } else if (choice=="PLOT"||choice=="plot"||choice=="Plot"){
+                graph();
+            } else if (choice=="SAVE"||choice=="save"||choice=="Save"){
+                save();
+            } else if (choice=="LOAD"||choice=="load"||choice=="Load"){
+                load();
+            } else if (choice=="QUIT"||choice=="quit"||choice=="Quit"){
+                Environment.Exit(0);
+            } else {
+                Console.WriteLine("Bitte gültige Eingabe treffen!");
+                menu();
+            }
+        }
+        //geht noch nicht! aber das mach ich nachher fertig!
+        static void import(){
+           string filePath = @"C:\Users\fankhauser\Downloads\MSFT.csv";
+             StreamReader sr = new StreamReader(filePath);
+            var lines = new List<int[]>();
+            int Row = 1;
+            while (!sr.EndOfStream)
+            {
+                string[] Line = sr.ReadLine().Split(",");
+                Line[0]="0";
+                int[] LineArr = Line;
+                lines.Add(LineArr);
+                Row++;
+                Console.WriteLine(Row);
+            }
+
+            var data = lines.ToArray();
+        }
 
 
 
@@ -86,5 +113,10 @@ namespace ALGODAT
             Console.WriteLine(line);
             Console.WriteLine(value);
         }
+        static void add(){}
+        static void del(){}
+        static void search(){}
+        static void save(){}
+        static void load(){}
     }
 }
