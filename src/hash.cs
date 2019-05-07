@@ -17,12 +17,12 @@ namespace ALGODAT
             }
         }
 
-        public int retrieve(string key){ //TODO: only by name; Fabian/Paul fragen
+        public Stock retrieve(string key){
             int hash=this.hash(key);
             int j=0;
             while(table[hash] != null){
-                if(table[hash].Name==key){
-                return hash;
+                if(table[hash].Abbreviation==key){
+                return table[hash];
             }
                 else
                 {
@@ -30,7 +30,7 @@ namespace ALGODAT
                     hash = (hash + j * j) % maxSize;
                 }
             }
-            return -1;
+            return null;
         } 
 
 
@@ -48,8 +48,8 @@ namespace ALGODAT
             return isOpen;
         }
 
-        public int hash(string name){
-            string tmp = name;
+        public int hash(string abbreviation){
+            string tmp = abbreviation;
             int h = 0, a = 31415, b = 27183;
             for (int i = 0; i < tmp.Length; i++) {
                 h = (a * h + tmp[i]) % maxSize;
@@ -67,7 +67,7 @@ namespace ALGODAT
             }
 
             int j = 0;
-            int hash = this.hash(name);
+            int hash = this.hash(abbreviation);
             Stock stock = new Stock();
 
             stock.Name=name;
@@ -79,8 +79,12 @@ namespace ALGODAT
                 table[hash] = stock;
                 return;
             }
+            else if(table[hash].Abbreviation == null){
+                table[hash] = stock;
+                return;
+            }
             else{
-                while(table[hash] != null)
+                while(table[hash] != null || table[hash].Abbreviation!=null)
             {
                 j++;
                 hash = (hash + j * j) % maxSize;
@@ -90,29 +94,33 @@ namespace ALGODAT
         }
     }
 
-        public bool remove(int key) //TODO: Fabian/Paul fragen
+        public bool remove(string key)
         {
-            int hash = key % maxSize;
-            while (table[hash] != null)
-            {
-                hash = (hash + 1) % maxSize;
-            }
-            if (table[hash] == null)
-            {
+            Stock stock = this.retrieve(key);
+            if(stock == null){
+                 Console.WriteLine("There is no such stock. Aborting.");
                 return false;
             }
-            else
-            {
-                table[hash] = null;
+            else if(stock.Abbreviation == null){
+                Console.WriteLine("There is no such stock. Aborting.");
+                return false;
+            }
+            else{
+                stock.Abbreviation = null;
+                Console.WriteLine("Successfully deleted " + stock.Abbreviation);
                 return true;
             }
         }
+
         public void print()
         {
             for (int i = 0; i < table.Length; i++)
             {
                 if(table[i] == null && i <= maxSize)
                 {
+                    continue;
+                }
+                else if(table[i].Abbreviation == null && i <= maxSize){
                     continue;
                 }
                 else

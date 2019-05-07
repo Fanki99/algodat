@@ -2,6 +2,7 @@
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ALGODAT
 {
@@ -67,18 +68,29 @@ namespace ALGODAT
              StreamReader sr = new StreamReader(filePath);
             var lines = new List<int[]>();
             int Row = 1;
+            List<StockEntry> entires = new List<StockEntry>();
             while (!sr.EndOfStream)
             {
                 string[] Line = sr.ReadLine().Split(",");
-                Console.WriteLine(Line[1]);
+                if(Row!=1){
+                StockEntry entry = new StockEntry();
+                entry.Date = Line[0];
+                entry.Open = Convert.ToDouble(Line[1], System.Globalization.CultureInfo.InvariantCulture);
+                entry.High = Convert.ToDouble(Line[2], new NumberFormatInfo{ NumberDecimalSeparator = "."});
+                entry.Low = Convert.ToDouble(Line[3], new NumberFormatInfo{ NumberDecimalSeparator = "."});
+                entry.Close = Convert.ToDouble(Line[4], new NumberFormatInfo{ NumberDecimalSeparator = "."});
+                entry.Volume = Convert.ToInt32(Line[6]);
+                entry.AdjClose = Convert.ToDouble(Line[5], new NumberFormatInfo{ NumberDecimalSeparator = "."});
+                entires.Add(entry);
                 // Line[0]="0";
                 // int[] LineArr = Array.ConvertAll(Line, int.Parse);
-                // lines.Add(LineArr);
+                // lines.Add(LineArr);  
+                }
                 Row++;
-                Console.WriteLine(Row);
+                
             }
 
-            var data = lines.ToArray();
+            (algohash.retrieve(input)).StockEntries = entires;
             menu();
         }
 
@@ -146,7 +158,7 @@ namespace ALGODAT
             Console.WriteLine("key?");
             string input = Console.ReadLine();
 
-            algohash.remove(Convert.ToInt32(input));
+            algohash.remove(input);
             algohash.print();
 
 
@@ -155,12 +167,12 @@ namespace ALGODAT
         static void search(){
             Console.WriteLine("key?");
             string input = Console.ReadLine();
-            int output = algohash.retrieve(input);
-            if(output==-1){
+            Stock stock = algohash.retrieve(input);
+            if(stock==null){
                 Console.WriteLine("No entry found!");
             }
             else{
-                Console.WriteLine(algohash.retrieve(input));
+                Console.WriteLine((algohash.retrieve(input)).latestEntry());
  
             }
             menu();

@@ -13,6 +13,5 @@ namespace ALGODAT
 		public double Close { get; set; }
 		public int Volume { get; set; }
 		public double AdjClose { get; set; }
-
 	}
 }
