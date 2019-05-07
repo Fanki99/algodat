@@ -65,7 +65,7 @@ namespace ALGODAT
              StreamReader sr = new StreamReader(filePath);
             var lines = new List<int[]>();
             int Row = 1;
-            List<StockEntry> entires = new List<StockEntry>();
+            List<StockEntry> entries = new List<StockEntry>();
             while (!sr.EndOfStream)
             {
                 string[] Line = sr.ReadLine().Split(",");
@@ -78,21 +78,23 @@ namespace ALGODAT
                 entry.Close = Convert.ToDouble(Line[4], new NumberFormatInfo{ NumberDecimalSeparator = "."});
                 entry.Volume = Convert.ToInt32(Line[6]);
                 entry.AdjClose = Convert.ToDouble(Line[5], new NumberFormatInfo{ NumberDecimalSeparator = "."});
-                entires.Add(entry);
+                entries.Add(entry);
                 }
                 Row++;   
             }
-            (algohash.retrieve(input)).StockEntries = entires;
+            (algohash.retrieve(input)).StockEntries = entries;
             menu();
         }
 
         //gibt Plot aus angegebenen Daten wieder
         static void graph(){
-            double[] values={35,42,34,45,42,41,43,40,31,42,37,44,39,43,37,34,30,34,36,35,43,41,42,37,36,35,32,45,36,42,38,41};
-            
-            double max = values.Max();
+            Console.WriteLine("Geben Sie ein Kürzel ein:");
+            string input = Console.ReadLine();
+            Stock stock = algohash.retrieve(input);
+            List<StockEntry> entries = stock.sortByDateAsc(stock.StockEntries);
+            double max = (stock.StockEntries.OrderBy(q => q.Close)).ToList().Last().Close;
             Console.WriteLine("Graph:");
-            Console.WriteLine(max);
+            // Console.WriteLine(max);
             // foreach (int number in values)
             // {
                 
@@ -100,22 +102,22 @@ namespace ALGODAT
             // double valuetemp=42.12/max*100%60;
             // valuetemp= Math.Round(valuetemp);
 
-            Console.WriteLine("\t^");
+            Console.WriteLine("\t\t^");
             double valuetemp=0;
-            for(int i=30; i>=1; i--){
-               valuetemp=Math.Round((values[i])/max*80);
+            for(int i=0; i<entries.Count; i++){
+               valuetemp=Math.Round((entries[i].Close)/max*80);
                 string valuetempoutput="";
                 //Console.WriteLine(valuetemp);
                     for(int k=0; k<valuetemp;k++){
                         valuetempoutput=valuetempoutput+"=";
                     }
-                    valuetempoutput=valuetempoutput+"I "+values[i]; 
-                    Console.WriteLine(i+".04\t|"+valuetempoutput);
+                    valuetempoutput=valuetempoutput+"I "+entries[i].Close; 
+                    Console.WriteLine("    "+entries[i].Date+"\t|"+valuetempoutput);
                 //  else {
                 //     Console.WriteLine(i+".04\t|");
                 // }
             }
-            string line="\tL";
+            string line="\t\tL";
             string value="\t";
             for(int i=1; i<=30; i++){
                 line=line+"__ ";
