@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ALGODAT
 {
-	class StockEntry{
+	public class StockEntry{
 		public string Date { get; set; }
 		public double Open { get; set; }
 		public double High { get; set; }

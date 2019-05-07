@@ -2,12 +2,15 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace ALGODAT
 {
-    class Hashtable {
+    [Serializable] 
+   public class Hashtable {
         const int maxSize = 1500; // table size
-        Stock[] table;
+        public Stock[] table;
         public Hashtable()
         {
             table = new Stock[maxSize];
@@ -129,5 +132,6 @@ namespace ALGODAT
                 }
             }
         }
+
     }
 }
