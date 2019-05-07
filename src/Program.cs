@@ -32,10 +32,7 @@ namespace ALGODAT
             menu();
         }
 
-<<<<<<< HEAD
-
-
-        static void SerializeObject<T>(T serializableObject, string fileName)
+    static void SerializeObject<T>(T serializableObject, string fileName)
         {
             if (serializableObject == null) { 
 
@@ -58,7 +55,6 @@ namespace ALGODAT
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                //Log exception here
             }
         }
 
@@ -87,15 +83,13 @@ namespace ALGODAT
             }
             catch (Exception ex)
             {
-                //Log exception here
+                Console.WriteLine(ex);
             }
             Console.WriteLine("Successfully read from " + fileName);
             return objectOut;
         }
 
-=======
         //Fragt nach der Auswahl des Users und führt gegebenenfalls Funktionen aus
->>>>>>> 855fec179380612b98a0d4be16a2850bd20f7339
         static void menu(){
             Console.WriteLine("----------------");
             Console.WriteLine("Ihre Auswahl:");
