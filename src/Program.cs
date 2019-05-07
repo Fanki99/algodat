@@ -153,29 +153,19 @@ namespace ALGODAT
             List<StockEntry> entries = stock.sortByDateAsc(stock.StockEntries);
             double max = (stock.StockEntries.OrderBy(q => q.Close)).ToList().Last().Close;
             Console.WriteLine("Graph:");
-            // Console.WriteLine(max);
-            // foreach (int number in values)
-            // {
-                
-            // }
-            // double valuetemp=42.12/max*100%60;
-            // valuetemp= Math.Round(valuetemp);
-
             Console.WriteLine("\t\t^");
             double valuetemp=0;
             for(int i=0; i<entries.Count; i++){
-               valuetemp=Math.Round((entries[i].Close)/max*80);
+               valuetemp=Math.Round((entries[i].Close)/max*70);
                 string valuetempoutput="";
-                //Console.WriteLine(valuetemp);
                     for(int k=0; k<valuetemp;k++){
                         valuetempoutput=valuetempoutput+"=";
                     }
                     valuetempoutput=valuetempoutput+"I "+entries[i].Close; 
                     Console.WriteLine("    "+entries[i].Date+"\t|"+valuetempoutput);
-                //  else {
-                //     Console.WriteLine(i+".04\t|");
-                // }
+                    Console.WriteLine("\t\t|");
             }
+            
             string line="\t\tL";
             string value="\t";
             for(int i=1; i<=30; i++){
