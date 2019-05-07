@@ -75,6 +75,7 @@ namespace ALGODAT
             }
 
             var data = lines.ToArray();
+            menu();
         }
 
        
@@ -117,6 +118,7 @@ namespace ALGODAT
             line=line+">";
             Console.WriteLine(line);
             Console.WriteLine(value);
+            menu();
         }
         static void add(){
             string name;
