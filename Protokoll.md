@@ -38,3 +38,32 @@ Mit unserer `retrieve()` Funktion, können wir nach Datensätzen mir den Aktienk
 ### Löschen von Daten
 
 Unsere `remove()` Funktion überprüft zuerst ob der Eintrag den wir Löschen wollen vorhanden ist. Ist dies der Fall wird diser geflagged, inderm das Kürzel auf `null` gesetzt wird. Somit ist es für unsere Funktionen unsichtbar und freigegen zum Überschreiben.
+
+
+## Aufwandsabschätzung
+
+### Hashtable
+
+|Verfahren |Best Case |Worst Case|Average Case|
+|----------|---------:|---------:|-----------:|
+|Lineare Suche| O(1) | O(N) | O(1)|
+|Am Ende einfügen| O(1) | O(N) | O(1)|
+|Am Ende löschen| O(1) | O(N) | O(1)|
+
+### Linked List
+
+|Verfahren |Best Case |Worst Case|Average Case|
+|----------|---------:|---------:|-----------:|
+|Lineare Suche| O(1) | O(N) | O(N)|
+|Am Ende einfügen| O(N) | O(N) | O(N)|
+|Am Ende löschen| O(N) | O(N) | O(N)|
+
+### Array
+
+|Verfahren |Best Case |Worst Case|Average Case|
+|----------|---------:|---------:|-----------:|
+|Lineare Suche| O(1) | O(N) | O(N/2)|
+|Am Ende einfügen| O(1) | O(1) | O(1)|
+|Am Ende löschen| O(1) | O(1) | O(1)|
+
+
