@@ -28,12 +28,9 @@ namespace ALGODAT
             Console.WriteLine("-LOAD: Laden einer Hashtabelle");
             Console.WriteLine("-QUIT: Programm wird beendet");
             menu();
-            
-            
-            //graph();
         }
 
-
+        //Fragt nach der Auswahl des Users und führt gegebenenfalls Funktionen aus
         static void menu(){
             Console.WriteLine("----------------");
             Console.WriteLine("Ihre Auswahl:");
@@ -59,8 +56,8 @@ namespace ALGODAT
                 menu();
             }
         }
-        //geht noch nicht! aber das mach ich nachher fertig!
-        //stock.StockEntries.Add()
+        
+        //Importet Daten aus CSV File aus dem assets Ordner und kopiert diese zu Objekt in einzelne StockEntries
         static void import(){
             Console.WriteLine("Geben Sie das Kürzel ein:");
              string input = Console.ReadLine();
@@ -82,22 +79,15 @@ namespace ALGODAT
                 entry.Volume = Convert.ToInt32(Line[6]);
                 entry.AdjClose = Convert.ToDouble(Line[5], new NumberFormatInfo{ NumberDecimalSeparator = "."});
                 entires.Add(entry);
-                // Line[0]="0";
-                // int[] LineArr = Array.ConvertAll(Line, int.Parse);
-                // lines.Add(LineArr);  
                 }
-                Row++;
-                
+                Row++;   
             }
-
             (algohash.retrieve(input)).StockEntries = entires;
             menu();
         }
 
-       
-
+        //gibt Plot aus angegebenen Daten wieder
         static void graph(){
-            // double[] values = { 30.0, 45.69, 42.0};
             double[] values={35,42,34,45,42,41,43,40,31,42,37,44,39,43,37,34,30,34,36,35,43,41,42,37,36,35,32,45,36,42,38,41};
             
             double max = values.Max();
@@ -136,26 +126,29 @@ namespace ALGODAT
             Console.WriteLine(value);
             menu();
         }
+        
+        //Fragt nach Eingabe der Daten und fügt diese mithilfe der insert Funktion dann in Hashtable ein
         static void add(){
             string name;
             string abbreviation;
             string wkn;
 
-            Console.WriteLine("Enter a name");
+            Console.WriteLine("Geben Sie einen Namen ein:");
             name = Console.ReadLine();
 
-            Console.WriteLine("Enter an abbreviation");
+            Console.WriteLine("Geben Sie ein Kürzel ein:");
             abbreviation = Console.ReadLine();
 
-            Console.WriteLine("Enter a WKN");
+            Console.WriteLine("Geben Sie eine WKN ein:");
             wkn = Console.ReadLine();
 
             algohash.insert(name, abbreviation, wkn);
             algohash.print();
             menu();
         }
+        //fragt nach Eingabe der Daten und flaggt den jeweiligen Wert mithilfe der remove Funktion
         static void del(){
-            Console.WriteLine("key?");
+            Console.WriteLine("Welche Aktie wollen Sie löschen? (Kürzel)");
             string input = Console.ReadLine();
 
             algohash.remove(input);
@@ -164,12 +157,13 @@ namespace ALGODAT
 
             menu();
         }
+        //Fragt nach Eingabe der Daten und sucht mithilfe der retrieve Funktion nach vorhandenem Eintrag oder leerer Stelle
         static void search(){
-            Console.WriteLine("key?");
+            Console.WriteLine("Nach welchem Kürzel wollen Sie suchen?");
             string input = Console.ReadLine();
             Stock stock = algohash.retrieve(input);
             if(stock==null){
-                Console.WriteLine("No entry found!");
+                Console.WriteLine("Kein Eintrag gefunden!");
             }
             else{
                 Console.WriteLine((algohash.retrieve(input)).latestEntry());
