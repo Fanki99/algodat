@@ -59,17 +59,21 @@ namespace ALGODAT
             }
         }
         //geht noch nicht! aber das mach ich nachher fertig!
+        //stock.StockEntries.Add()
         static void import(){
-           string filePath = @"C:\Users\fankhauser\Downloads\MSFT.csv";
+            Console.WriteLine("Geben Sie das Kürzel ein:");
+             string input = Console.ReadLine();
+           string filePath = System.IO.Path.GetFullPath("assets/"+input+".csv");
              StreamReader sr = new StreamReader(filePath);
             var lines = new List<int[]>();
             int Row = 1;
             while (!sr.EndOfStream)
             {
                 string[] Line = sr.ReadLine().Split(",");
-                Line[0]="0";
-                int[] LineArr = Array.ConvertAll(Line, int.Parse);
-                lines.Add(LineArr);
+                Console.WriteLine(Line);
+                // Line[0]="0";
+                // int[] LineArr = Array.ConvertAll(Line, int.Parse);
+                // lines.Add(LineArr);
                 Row++;
                 Console.WriteLine(Row);
             }

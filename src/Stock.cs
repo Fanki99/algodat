@@ -9,6 +9,6 @@ namespace ALGODAT
     	public string Name { get; set; }
     	public string Abbreviation { get; set; }
     	public string Wkn { get; set; }
-    	public StockEntry[] StockEntries { get; set; }
+    	public List<StockEntry> StockEntries { get; set; }
 	}
 }
