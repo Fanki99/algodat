@@ -70,7 +70,7 @@ namespace ALGODAT
             while (!sr.EndOfStream)
             {
                 string[] Line = sr.ReadLine().Split(",");
-                Console.WriteLine(Line);
+                Console.WriteLine(Line[1]);
                 // Line[0]="0";
                 // int[] LineArr = Array.ConvertAll(Line, int.Parse);
                 // lines.Add(LineArr);
