@@ -77,10 +77,12 @@ namespace ALGODAT
             var data = lines.ToArray();
         }
 
-
+       
 
         static void graph(){
-            double[] values = { 30.0, 45.69, 42.0};
+            // double[] values = { 30.0, 45.69, 42.0};
+            double[] values={35,42,34,45,42,41,43,40,31,42,37,44,39,43,37,34,30,34,36,35,43,41,42,37,36,35,32,45,36,42,38,41};
+            
             double max = values.Max();
             Console.WriteLine("Graph:");
             Console.WriteLine(max);
@@ -88,23 +90,23 @@ namespace ALGODAT
             // {
                 
             // }
-            double valuetemp=42.12/max*100%60;
-            valuetemp= Math.Round(valuetemp);
+            // double valuetemp=42.12/max*100%60;
+            // valuetemp= Math.Round(valuetemp);
 
             Console.WriteLine("\t^");
-            string value1="";
+            double valuetemp=0;
             for(int i=30; i>=1; i--){
-                if(i==15){
-                
+               valuetemp=Math.Round((values[i])/max*80);
+                string valuetempoutput="";
                 //Console.WriteLine(valuetemp);
                     for(int k=0; k<valuetemp;k++){
-                        value1=value1+"=";
+                        valuetempoutput=valuetempoutput+"=";
                     }
-                    value1=value1+"I 42.12";
-                    Console.WriteLine(i+".04\t|"+value1);
-                } else {
-                    Console.WriteLine(i+".04\t|");
-                }
+                    valuetempoutput=valuetempoutput+"I "+values[i]; 
+                    Console.WriteLine(i+".04\t|"+valuetempoutput);
+                //  else {
+                //     Console.WriteLine(i+".04\t|");
+                // }
             }
             string line="\tL";
             string value="\t";
