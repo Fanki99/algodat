@@ -6,40 +6,6 @@ using System.Collections.Generic;
 namespace ALGODAT
 {
     class Hashtable {
-        class Stock{
-            public string name;
-            public string abbreviation;
-            public string wkn;
-            //string wkn;
-            //string abbreviation;
-
-            public Stock(string name, string abbreviation, string wkn)
-            {
-                this.name = name;
-                this.abbreviation = abbreviation;
-                this.wkn = wkn;
-                //this.wkn = wkn;
-                //this.abbreviation = abbreviation;
-            }
-
-            public string getName(){
-                return this.name;
-            }
-
-            public string getAbbreviation(){
-                return this.abbreviation;
-            }
-
-            public string getWkn(){
-                return this.wkn;
-            }
-/*             public string getwkn(){
-                return wkn;
-            }
-            public string getabbreviation(){
-                return abbreviation;
-            } */
-        }
         const int maxSize = 1500; // table size
         Stock[] table;
         public Hashtable()
@@ -51,11 +17,11 @@ namespace ALGODAT
             }
         }
 
-        public int retrieve(string key){
+        public int retrieve(string key){ //TODO: only by name; Fabian/Paul fragen
             int hash=this.hash(key);
             int j=0;
             while(table[hash] != null){
-                if(table[hash].getName()==key){
+                if(table[hash].Name==key){
                 return hash;
             }
                 else
@@ -102,10 +68,15 @@ namespace ALGODAT
 
             int j = 0;
             int hash = this.hash(name);
+            Stock stock = new Stock();
+
+            stock.Name=name;
+            stock.Abbreviation=abbreviation;
+            stock.Wkn=wkn;
 
             if (table[hash] == null)
             {
-                table[hash] = new Stock(name, abbreviation, wkn);
+                table[hash] = stock;
                 return;
             }
             else{
@@ -114,12 +85,12 @@ namespace ALGODAT
                 j++;
                 hash = (hash + j * j) % maxSize;
             }
-            table[hash] = new Stock(name, abbreviation, wkn);
+            table[hash] = stock;
             return;
         }
     }
 
-        public bool remove(int key)
+        public bool remove(int key) //TODO: Fabian/Paul fragen
         {
             int hash = key % maxSize;
             while (table[hash] != null)
@@ -146,7 +117,7 @@ namespace ALGODAT
                 }
                 else
                 {
-                    Console.WriteLine("{0}, {1}",i, table[i].getName());
+                    Console.WriteLine("{0}, {1}",i, table[i].Name);
                 }
             }
         }
