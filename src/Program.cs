@@ -7,10 +7,10 @@ namespace ALGODAT
 {
     class Program
     {
-        static hashtable algohash;
+        static Hashtable algohash;
         static void Main(string[] args)
         {
-            algohash = new hashtable();
+            algohash = new Hashtable();
 
             Console.WriteLine("----------------");
             Console.WriteLine("Willkommen bei dem Aktien-Programm");
@@ -117,16 +117,20 @@ namespace ALGODAT
             Console.WriteLine(value);
         }
         static void add(){
-            string keyinput;
-            string nameinput;
+            string name;
+            string abbreviation;
+            string wkn;
 
-            Console.WriteLine("Input key");
-            keyinput = Console.ReadLine();
+            Console.WriteLine("Enter a name");
+            name = Console.ReadLine();
 
-            Console.WriteLine("Input Name");
-            nameinput = Console.ReadLine();
+            Console.WriteLine("Enter an abbreviation");
+            abbreviation = Console.ReadLine();
 
-            algohash.insert(Convert.ToInt32(keyinput), nameinput);
+            Console.WriteLine("Enter a WKN");
+            wkn = Console.ReadLine();
+
+            algohash.insert(name, abbreviation, wkn);
             algohash.print();
             menu();
         }
@@ -143,8 +147,14 @@ namespace ALGODAT
         static void search(){
             Console.WriteLine("key?");
             string input = Console.ReadLine();
-
-            Console.WriteLine(algohash.retrieve(Convert.ToInt32(input)));
+            int output = algohash.retrieve(input);
+            if(output==-1){
+                Console.WriteLine("No entry found!");
+            }
+            else{
+                Console.WriteLine(algohash.retrieve(input));
+ 
+            }
             menu();
         }
         static void save(){}

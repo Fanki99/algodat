@@ -5,26 +5,33 @@ using System.Collections.Generic;
 
 namespace ALGODAT
 {
-    class hashtable {
-        class hashentry{
-            int key;
-            string name;
+    class Hashtable {
+        class Stock{
+            public string name;
+            public string abbreviation;
+            public string wkn;
             //string wkn;
             //string abbreviation;
 
-            public hashentry(int key, string name)
+            public Stock(string name, string abbreviation, string wkn)
             {
-                this.key = key;
                 this.name = name;
+                this.abbreviation = abbreviation;
+                this.wkn = wkn;
                 //this.wkn = wkn;
                 //this.abbreviation = abbreviation;
             }
 
-            public int getkey(){
-                return key;
+            public string getName(){
+                return this.name;
             }
-            public string getname(){
-                return name;
+
+            public string getAbbreviation(){
+                return this.abbreviation;
+            }
+
+            public string getWkn(){
+                return this.wkn;
             }
 /*             public string getwkn(){
                 return wkn;
@@ -33,32 +40,34 @@ namespace ALGODAT
                 return abbreviation;
             } */
         }
-        const int maxSize = 10; // table size
-        hashentry[] table;
-        public hashtable()
+        const int maxSize = 1500; // table size
+        Stock[] table;
+        public Hashtable()
         {
-            table = new hashentry[maxSize];
+            table = new Stock[maxSize];
             for (int i = 0; i < maxSize; i++)
             {
                 table[i] = null;
             }
         }
-        public string retrieve(int key){
-            int hash = key % maxSize;
 
-            while(table[hash] !=null && table[hash].getkey() != key)
-            {
-                hash = (hash + 1) % maxSize;
+        public int retrieve(string key){
+            int hash=this.hash(key);
+            int j=0;
+            while(table[hash] != null){
+                if(table[hash].getName()==key){
+                return hash;
             }
-            if (table[hash] == null)
-            {
-                return "nothing found";
+                else
+                {
+                    j++;
+                    hash = (hash + j * j) % maxSize;
+                }
             }
-            else
-            {
-                return table[hash].getname();
-            }
-        }
+            return -1;
+        } 
+
+
 
         private bool checkOpenSpace()
         {
@@ -72,7 +81,18 @@ namespace ALGODAT
             }
             return isOpen;
         }
-        public void insert(int key, string name)
+
+        public int hash(string name){
+            string tmp = name;
+            int h = 0, a = 31415, b = 27183;
+            for (int i = 0; i < tmp.Length; i++) {
+                h = (a * h + tmp[i]) % maxSize;
+                a = a * b % (maxSize - 1); 
+            }
+            return h;
+        }
+
+        public void insert(string name, string abbreviation, string wkn)
         {
             if(!checkOpenSpace())
             {
@@ -81,11 +101,11 @@ namespace ALGODAT
             }
 
             int j = 0;
-            int hash = key % maxSize;
+            int hash = this.hash(name);
 
             if (table[hash] == null)
             {
-                table[hash] = new hashentry(hash, name);
+                table[hash] = new Stock(name, abbreviation, wkn);
                 return;
             }
             else{
@@ -94,7 +114,7 @@ namespace ALGODAT
                 j++;
                 hash = (hash + j * j) % maxSize;
             }
-            table[hash] = new hashentry(hash, name);
+            table[hash] = new Stock(name, abbreviation, wkn);
             return;
         }
     }
@@ -102,7 +122,7 @@ namespace ALGODAT
         public bool remove(int key)
         {
             int hash = key % maxSize;
-            while (table[hash] != null && table[hash].getkey() != key)
+            while (table[hash] != null)
             {
                 hash = (hash + 1) % maxSize;
             }
@@ -126,7 +146,7 @@ namespace ALGODAT
                 }
                 else
                 {
-                    Console.WriteLine("{0}, {1}",table[i].getkey(), table[i].getname());
+                    Console.WriteLine("{0}, {1}",i, table[i].getName());
                 }
             }
         }
