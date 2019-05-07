@@ -30,11 +30,9 @@ namespace ALGODAT
             Console.WriteLine("-LOAD: Laden einer Hashtabelle");
             Console.WriteLine("-QUIT: Programm wird beendet");
             menu();
-            
-            
-            //graph();
         }
 
+<<<<<<< HEAD
 
 
         static void SerializeObject<T>(T serializableObject, string fileName)
@@ -95,6 +93,9 @@ namespace ALGODAT
             return objectOut;
         }
 
+=======
+        //Fragt nach der Auswahl des Users und führt gegebenenfalls Funktionen aus
+>>>>>>> 855fec179380612b98a0d4be16a2850bd20f7339
         static void menu(){
             Console.WriteLine("----------------");
             Console.WriteLine("Ihre Auswahl:");
@@ -120,8 +121,8 @@ namespace ALGODAT
                 menu();
             }
         }
-        //geht noch nicht! aber das mach ich nachher fertig!
-        //stock.StockEntries.Add()
+        
+        //Importet Daten aus CSV File aus dem assets Ordner und kopiert diese zu Objekt in einzelne StockEntries
         static void import(){
             Console.WriteLine("Geben Sie das Kürzel ein:");
              string input = Console.ReadLine();
@@ -129,7 +130,7 @@ namespace ALGODAT
              StreamReader sr = new StreamReader(filePath);
             var lines = new List<int[]>();
             int Row = 1;
-            List<StockEntry> entires = new List<StockEntry>();
+            List<StockEntry> entries = new List<StockEntry>();
             while (!sr.EndOfStream)
             {
                 string[] Line = sr.ReadLine().Split(",");
@@ -142,28 +143,23 @@ namespace ALGODAT
                 entry.Close = Convert.ToDouble(Line[4], new NumberFormatInfo{ NumberDecimalSeparator = "."});
                 entry.Volume = Convert.ToInt32(Line[6]);
                 entry.AdjClose = Convert.ToDouble(Line[5], new NumberFormatInfo{ NumberDecimalSeparator = "."});
-                entires.Add(entry);
-                // Line[0]="0";
-                // int[] LineArr = Array.ConvertAll(Line, int.Parse);
-                // lines.Add(LineArr);  
+                entries.Add(entry);
                 }
-                Row++;
-                
+                Row++;   
             }
-
-            (algohash.retrieve(input)).StockEntries = entires;
+            (algohash.retrieve(input)).StockEntries = entries;
             menu();
         }
 
-       
-
+        //gibt Plot aus angegebenen Daten wieder
         static void graph(){
-            // double[] values = { 30.0, 45.69, 42.0};
-            double[] values={35,42,34,45,42,41,43,40,31,42,37,44,39,43,37,34,30,34,36,35,43,41,42,37,36,35,32,45,36,42,38,41};
-            
-            double max = values.Max();
+            Console.WriteLine("Geben Sie ein Kürzel ein:");
+            string input = Console.ReadLine();
+            Stock stock = algohash.retrieve(input);
+            List<StockEntry> entries = stock.sortByDateAsc(stock.StockEntries);
+            double max = (stock.StockEntries.OrderBy(q => q.Close)).ToList().Last().Close;
             Console.WriteLine("Graph:");
-            Console.WriteLine(max);
+            // Console.WriteLine(max);
             // foreach (int number in values)
             // {
                 
@@ -171,22 +167,22 @@ namespace ALGODAT
             // double valuetemp=42.12/max*100%60;
             // valuetemp= Math.Round(valuetemp);
 
-            Console.WriteLine("\t^");
+            Console.WriteLine("\t\t^");
             double valuetemp=0;
-            for(int i=30; i>=1; i--){
-               valuetemp=Math.Round((values[i])/max*80);
+            for(int i=0; i<entries.Count; i++){
+               valuetemp=Math.Round((entries[i].Close)/max*80);
                 string valuetempoutput="";
                 //Console.WriteLine(valuetemp);
                     for(int k=0; k<valuetemp;k++){
                         valuetempoutput=valuetempoutput+"=";
                     }
-                    valuetempoutput=valuetempoutput+"I "+values[i]; 
-                    Console.WriteLine(i+".04\t|"+valuetempoutput);
+                    valuetempoutput=valuetempoutput+"I "+entries[i].Close; 
+                    Console.WriteLine("    "+entries[i].Date+"\t|"+valuetempoutput);
                 //  else {
                 //     Console.WriteLine(i+".04\t|");
                 // }
             }
-            string line="\tL";
+            string line="\t\tL";
             string value="\t";
             for(int i=1; i<=30; i++){
                 line=line+"__ ";
@@ -197,26 +193,29 @@ namespace ALGODAT
             Console.WriteLine(value);
             menu();
         }
+        
+        //Fragt nach Eingabe der Daten und fügt diese mithilfe der insert Funktion dann in Hashtable ein
         static void add(){
             string name;
             string abbreviation;
             string wkn;
 
-            Console.WriteLine("Enter a name");
+            Console.WriteLine("Geben Sie einen Namen ein:");
             name = Console.ReadLine();
 
-            Console.WriteLine("Enter an abbreviation");
+            Console.WriteLine("Geben Sie ein Kürzel ein:");
             abbreviation = Console.ReadLine();
 
-            Console.WriteLine("Enter a WKN");
+            Console.WriteLine("Geben Sie eine WKN ein:");
             wkn = Console.ReadLine();
 
             algohash.insert(name, abbreviation, wkn);
             algohash.print();
             menu();
         }
+        //fragt nach Eingabe der Daten und flaggt den jeweiligen Wert mithilfe der remove Funktion
         static void del(){
-            Console.WriteLine("key?");
+            Console.WriteLine("Welche Aktie wollen Sie löschen? (Kürzel)");
             string input = Console.ReadLine();
 
             algohash.remove(input);
@@ -225,12 +224,13 @@ namespace ALGODAT
 
             menu();
         }
+        //Fragt nach Eingabe der Daten und sucht mithilfe der retrieve Funktion nach vorhandenem Eintrag oder leerer Stelle
         static void search(){
-            Console.WriteLine("key?");
+            Console.WriteLine("Nach welchem Kürzel wollen Sie suchen?");
             string input = Console.ReadLine();
             Stock stock = algohash.retrieve(input);
             if(stock==null){
-                Console.WriteLine("No entry found!");
+                Console.WriteLine("Kein Eintrag gefunden!");
             }
             else{
                 Console.WriteLine((algohash.retrieve(input)).latestEntry());

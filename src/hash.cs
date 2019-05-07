@@ -12,6 +12,7 @@ namespace ALGODAT
         const int maxSize = 1500; // table size
         public Stock[] table;
         public Hashtable()
+
         {
             table = new Stock[maxSize];
             for (int i = 0; i < maxSize; i++)
@@ -20,6 +21,7 @@ namespace ALGODAT
             }
         }
 
+        //hasht die Eingabe und sondiert so lange bis Ergebnis gefunden oder nicht vorhanden (leer);
         public Stock retrieve(string key){
             int hash=this.hash(key);
             int j=0;
@@ -37,7 +39,7 @@ namespace ALGODAT
         } 
 
 
-
+        //checkt ob überhaupt noch freier Platz vorhanden ist
         private bool checkOpenSpace()
         {
             bool isOpen = false;
@@ -51,6 +53,8 @@ namespace ALGODAT
             return isOpen;
         }
 
+        //hasht das Kürzel und returnt den Hash-Wert
+        //Jeder Buchstabe des Kürzels wird verwendet um zusammen mit a & h einen gesamten Hashwert h am Ende herauszubekommen
         public int hash(string abbreviation){
             string tmp = abbreviation;
             int h = 0, a = 31415, b = 27183;
@@ -61,11 +65,13 @@ namespace ALGODAT
             return h;
         }
 
+        //fügt neuen Wert hinzu, nachdem es checkt ob freier Platz vorhanden ist
+        //erstellt ein neues Stock-Object welches mit den eingegebenen Daten gefüllt wird
         public void insert(string name, string abbreviation, string wkn)
         {
             if(!checkOpenSpace())
             {
-                Console.WriteLine("table is at full capacity!");
+                Console.WriteLine("Hashtable ist leider voll!");
                 return;
             }
 
@@ -97,24 +103,27 @@ namespace ALGODAT
         }
     }
 
+        //checkt ob Eingabe vorhanden und wenn, dann wird der Eintrag geflagged, in dem das Kürzel auf null gesetzt wird
+        //damit ist es für unsere Funktionen unsichtbar und freigegeben zum Überschreiben!
         public bool remove(string key)
         {
             Stock stock = this.retrieve(key);
             if(stock == null){
-                 Console.WriteLine("There is no such stock. Aborting.");
+                 Console.WriteLine("Abbrechen - kein passender Eintrag gefunden.");
                 return false;
             }
             else if(stock.Abbreviation == null){
-                Console.WriteLine("There is no such stock. Aborting.");
+                Console.WriteLine("Abbrechen - kein passender Eintrag gefunden.");
                 return false;
             }
             else{
                 stock.Abbreviation = null;
-                Console.WriteLine("Successfully deleted " + stock.Abbreviation);
+                Console.WriteLine("Erfolgreich gelöscht: " + stock.Abbreviation);
                 return true;
             }
         }
 
+        //gibt Daten des Stocks wieder
         public void print()
         {
             for (int i = 0; i < table.Length; i++)

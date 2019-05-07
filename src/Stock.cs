@@ -28,7 +28,7 @@ namespace ALGODAT
     					"AdjClose: " + latest.AdjClose + "\n";
     		}
     		else{
-    			return Abbreviation+ " was found, but there are no Entries for it.";
+    			return Abbreviation+ " wurde gefunden, allerdings sind noch keine Einträge vorhanden.";
     		}
 
 
