@@ -10,6 +10,7 @@ namespace Algodat
         public int key;
         public Node left;
         public Node right;
+        
         public Node(int initial){
             key = initial;
             left = null;
@@ -21,6 +22,7 @@ namespace Algodat
     {   
         bool isAVL = true;
         int min, max, avgSum, avgCount;
+        bool first = true;
         public Node root;
         public Tree()
         {
@@ -40,10 +42,14 @@ namespace Algodat
 
         public void AddR(ref Node N, int key)
         {
+            
             if (N == null)
             {
                 Node NewNode = new Node(key);
                 N = NewNode;
+                return;
+            }
+            if(key == N.key){
                 return;
             }
             if (key < N.key)
@@ -56,6 +62,7 @@ namespace Algodat
                 AddR(ref N.right, key);
                 return;
             }
+            
         }
 
         public void parse(){
@@ -66,7 +73,7 @@ namespace Algodat
                 Console.Write("yes ");
             }
             else {
-                Console.Write("no ");
+                Console.Write("no \n");
             }
             Console.WriteLine("min: " + min + "; max: " + max + "; avg:" + ((Double)avgSum / (Double)avgCount)); 
         }
@@ -92,7 +99,11 @@ namespace Algodat
                     Console.Write(" AVL violation!");
                     isAVL = false;
                 }
-
+                
+                if(first){
+                    min = N.key;
+                    first = false;
+                }
                 Console.Write("\n");
                 if(min > N.key) min = N.key;
                 if(max < N.key) max = N.key;
